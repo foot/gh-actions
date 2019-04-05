@@ -7,7 +7,7 @@ package() {
     helm init --client-only
     helm lint ${CHART}
     mkdir /github/home/pkg
-    helm package ${CHART} --destination /github/home/pkg/
+    helm package ${CHART} --dependency-update --destination /github/home/pkg/
 }
 
 push() {
