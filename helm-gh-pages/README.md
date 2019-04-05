@@ -36,6 +36,16 @@ action "Helm gh-pages" {
 }
 ```
 
+Publish the Helm chart located at `chart/app` to a the `chart-repo` branch:
+
+```terraform
+action "Helm gh-pages" {
+  uses = "stefanprodan/gh-actions/helm-gh-pages@master"
+  args = ["chart/app","https://user.github.io/app","","chart-repo"]
+  secrets = ["GITHUB_TOKEN"]
+}
+```
+
 ### Usage
 
 Assuming your GitHub repository has a Helm chart named `app` located at `chart/app` the release procedure could be:

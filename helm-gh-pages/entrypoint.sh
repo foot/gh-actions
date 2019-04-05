@@ -14,12 +14,12 @@ push() {
   git config user.email ${GITHUB_ACTOR}@users.noreply.github.com
   git config user.name ${GITHUB_ACTOR}
   git remote set-url origin ${REPOSITORY}
-  git checkout gh-pages
+  git checkout ${BRANCH}
   mv /github/home/pkg/*.tgz .
   helm repo index . --url ${URL}
   git add .
   git commit -m "Publish Helm chart ${CHART} ${TAG}"
-  git push origin gh-pages
+  git push origin ${BRANCH}
 }
 
 REPOSITORY="https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
@@ -48,6 +48,13 @@ else
     if [[ ${TAG} != *${TAG_FILTER}* ]]; then
     echo "Tag ${TAG} does not match filter ${TAG_FILTER}" && exit 78;
     fi
+fi
+
+if [[ -z $4 ]]; then
+  echo "Branch not specified, using default: gh-pages";
+  BRANCH=gh-pages
+else
+  BRANCH=$4
 fi
 
 package
