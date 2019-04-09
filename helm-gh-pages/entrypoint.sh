@@ -14,6 +14,8 @@ push() {
   git config user.email ${GITHUB_ACTOR}@users.noreply.github.com
   git config user.name ${GITHUB_ACTOR}
   git remote set-url origin ${REPOSITORY}
+  # clean up anything left over from helm packaging
+  git clean -f
   git checkout ${BRANCH}
   mv /github/home/pkg/*.tgz .
   helm repo index . --url ${URL}
