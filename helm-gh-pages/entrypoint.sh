@@ -11,8 +11,8 @@ package() {
     mkdir /github/home/pkg
     helm package ${CHART} --dependency-update --destination /github/home/pkg/
     # clean up anything left over from helm packaging
-    git checkout .
     git clean -f
+    git checkout .
 }
 
 push() {
