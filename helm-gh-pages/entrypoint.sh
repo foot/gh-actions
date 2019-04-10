@@ -18,6 +18,8 @@ push() {
   git remote set-url origin ${REPOSITORY}
   # clean up anything left over from helm packaging
   git clean -f
+  git checkout .
+
   git checkout ${BRANCH}
   mv /github/home/pkg/*.tgz .
   helm repo index . --url ${URL}
