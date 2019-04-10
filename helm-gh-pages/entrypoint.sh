@@ -6,6 +6,8 @@ set -o pipefail
 package() {
     helm init --client-only
     helm lint ${CHART}
+    SEMVER=$(echo $TAG | sed 's/^[^0-9]*//')
+    sed -i "s/^version: .*$/version: $SEMVER/" ${CHART}/Chart.yaml
     mkdir /github/home/pkg
     helm package ${CHART} --dependency-update --destination /github/home/pkg/
 }
